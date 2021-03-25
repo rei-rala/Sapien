@@ -6,8 +6,8 @@ from gral import TABLA_OPERACIONES as TABLA
 from gral import PLAYER_LIST as PL
 
 print('\nBienvenido a Sapien, el juego matematico\n')
-players =  int(input(f'Ingrese cantidad de jugadores: ' )) # o poner un valor fijo de tipo INT
-rounds =  int(input(f'Ingrese cantidad de rondas: ' )) # o poner un valor fijo de tipo INT
+players =  1 #int(input(f'Ingrese cantidad de jugadores: ' )) # o poner un valor fijo de tipo INT
+rounds =  10 #int(input(f'Ingrese cantidad de rondas: ' )) # o poner un valor fijo de tipo INT
 # round = 0 # NO OPERATIVO, contador de rounds
 
 def Sapien(p):
@@ -18,7 +18,7 @@ def Sapien(p):
     print(f'\n{select}')
     #print( TABLA[select] ) # CHEAT, arroja el resultado :D
     
-    respuesta = input('\nIngrese respuesta en numeros enteros: ') # respuesta del usuario tras seleccion de operacion matematica aleatoria
+    respuesta =  1 #input('\nIngrese respuesta en numeros enteros: ') # respuesta del usuario tras seleccion de operacion matematica aleatoria
     
     if TABLA[select]  != int(respuesta) :
         print('RESPUESTA INCORRECTA!\n\n\n')
@@ -37,7 +37,7 @@ def Sapien(p):
 
 
 for i in range(players):                                                      # crea clases en funcion de la cantidad de jugadores declarados
-    i = Jugador( input( f'\nIngrese nombre para jugador {i+1}: '), 0, 0, [] ) # funcional: i = Jugador( input( f'\nIngrese nombre para jugador {i+1}: '), 0, 0, [] ) / creacion de clases con nombre personalizado
+    i = Jugador( ( f'\n jugador {i+1}: '), 0, 0, [] ) # funcional: i = Jugador( input( f'\nIngrese nombre para jugador {i+1}: '), 0, 0, [] ) / creacion de clases con nombre personalizado
     PL.append( i )                                                   # aniade la clase creada a la lista de jugadores
     # print(f'{i.nombre}, PUNTOS {i.puntos}, ACIERTOS {i.aciertos}')          # verifica creacion de clase con nombre de jugador X
 
@@ -71,4 +71,4 @@ for i in PL:
         print(f'Errores de {i.nombre}: {i.errores}')
 
 
-input('Ingrese cualquier tecla para cerrar: ')
+#input('Ingrese cualquier tecla para cerrar: ')

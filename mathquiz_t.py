@@ -1,14 +1,15 @@
 import random
 import time
 
+print('\nBienvenido a Sapien, el juego matematico\n')
+
 from jug import Jugador
 from gral import TABLA_OPERACIONES as TABLA
 from gral import PLAYER_LIST as PL
+from process import *
 
-print('\nBienvenido a Sapien, el juego matematico\n')
-players =  int(input(f'Ingrese cantidad de jugadores: ' )) # o poner un valor fijo de tipo INT
-rounds =  int(input(f'Ingrese cantidad de rondas: ' )) # o poner un valor fijo de tipo INT
-# round = 0 # NO OPERATIVO, contador de rounds
+q_players()
+q_rounds()
 
 def Sapien(p):
     select = random.choice( list( TABLA.keys() ) )
@@ -36,7 +37,7 @@ def Sapien(p):
     # round += 1  # NO OPERATIVO, contador de round
 
 
-for i in range(players):                                                      # crea clases en funcion de la cantidad de jugadores declarados
+for i in range(int(playerZ)):                                                      # crea clases en funcion de la cantidad de jugadores declarados
     i = Jugador( input( f'\nIngrese nombre para jugador {i+1}: '), 0, 0, [] ) # funcional: i = Jugador( input( f'\nIngrese nombre para jugador {i+1}: '), 0, 0, [] ) / creacion de clases con nombre personalizado
     PL.append( i )                                                   # aniade la clase creada a la lista de jugadores
     # print(f'{i.nombre}, PUNTOS {i.puntos}, ACIERTOS {i.aciertos}')          # verifica creacion de clase con nombre de jugador X
@@ -45,9 +46,9 @@ def GAME():
     k = 0
     
     for j in PL:
-        for g in range(int(rounds)):
+        for g in range(int(roundZ)):
             Sapien(j)
-    while k in range(players):
+    while k in range(int(playerZ)):
         k = int(k)
         print( PL[k] )
         k += 1

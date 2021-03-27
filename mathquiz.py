@@ -1,13 +1,17 @@
 import random
 import time
 
-from jug import Jugador
-from gral import TABLA_OPERACIONES as TABLA, PLAYER_LIST as PL #, RESTOCK, ROUND
+print('\nBienvenido a Sapien, el juego de trivia matematica\n')
 
-print('\nBienvenido a Sapien, el juego matematico\n')
-players = int(input(f'Ingrese cantidad de jugadores: ' ))  # o poner un valor fijo de tipo INT
-rounds =  int(input(f'Ingrese cantidad de rondas: ' ))  # o poner un valor fijo de tipo INT
-# round = 0     # NO OPERATIVO, contador de rounds
+#from jug import Jugador
+from gral import TABLA_OPERACIONES as TABLA, PLAYER_LIST as PL, Jugador
+from game_conditions import Conditions, c, set_conditions
+
+
+set_conditions()
+This_Game = Conditions( int(c[0]) , int(c[1]) )
+print(This_Game)
+
 
 def Sapien(p):
     select = random.choice( list( TABLA.keys() ) )
@@ -20,23 +24,30 @@ def Sapien(p):
     respuesta = input('\nIngrese respuesta en numeros enteros: ')   # respuesta del usuario tras seleccion de operacion matematica aleatoria
     
     time.sleep(0.5)
-    if TABLA[select]  != int(respuesta) :
+    
+    try: 
+        TABLA[select]  != int(respuesta)
+    except:
         print('RESPUESTA INCORRECTA!\n\n\n')
         p.puntos -= 1
-        p.errores.append(f' xxx {select} = {int(respuesta)} xxx')   # aniade los errores a la clase para mostrarlos al decidir ganador
-        
+        p.errores.append(f' xxx {select} = {(respuesta)} xxx')   # aniade los errores a la clase para mostrarlos al decidir ganador
     else:
-        print('Correcto!\n\n\n')
-        p.aciertos += 1
-        p.puntos += 2
-        
+        if TABLA[select]  != int(respuesta):
+            print('RESPUESTA INCORRECTA!\n\n\n')
+            p.puntos -= 1
+            p.errores.append(f' xxx {select} = {int(respuesta)} xxx')   # aniade los errores a la clase para mostrarlos al decidir ganador
+            
+        else:
+            print('Correcto!\n\n\n')
+            p.aciertos += 1
+            p.puntos += 2
+
     #print( len(TABLA) )    # DEBUG de tamanio de tabla
     TABLA.pop( key_operation )  # Elimina la opcion elegida por el sistema para evitar que haya dos opciones iguales
     #print( len(TABLA) )    # DEBUG de tamanio de tabla (debe ser -1 a linea 33)
-    # round += 1    # NO OPERATIVO, contador de round
 
 
-for i in range(players):    # crea clases en funcion de la cantidad de jugadores declarados
+for i in range(This_Game.q_players):    # crea clases en funcion de la cantidad de jugadores declarados
     i = Jugador( input( f'\nIngrese nombre para jugador {i+1}: '), 0, 0, [] )   # DEBUG -> i = Jugador( nombre=f'JUGADOR {i+1}' ), puntos=0, aciertos=0, errores=[] ) / creacion de clases con nombre personalizado
     PL.append( i )  # aniade la clase creada a la lista de jugadores
     # DEBUG / test de clase creada para Jugador 'i' -> print(f'{i.nombre}, PUNTOS {i.puntos}, ACIERTOS {i.aciertos}')
@@ -45,9 +56,9 @@ def GAME():     # Tras definicion de cantidad de jugadores y de rondas, proceden
     k = 0
     
     for j in PL:
-        for g in range(int(rounds)):
+        for g in range(This_Game.q_rounds):
             Sapien(j)
-    while k in range(players):
+    while k in range(This_Game.q_players):
         k = int(k)
         print( PL[k] )
         k += 1

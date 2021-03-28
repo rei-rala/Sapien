@@ -1,128 +1,92 @@
-# RESTOCK y TABLA_OPERACIONES DEBEN MODIFICARSE EN SIMULTANEO
-TABLA_OPERACIONES = {'3+436'   : 3+436,
-'3+1'     : 3+1 ,
-'12*2'    : 12*2 ,
-'436/2'   : 436/2 ,
-'3849+1'  : 3849+1 ,
-'98+888'  : 98+888 ,
-'88+22+1' : 88+22+1 ,
-'13/13'   : 13/13 ,
-'1+1'     : 1+1 ,
-'33+36'   : 33+36 ,
-'100-9'   : 100-9 ,
-'123+66'  : 123+66 ,
-'456+1'   : 456+1 ,
-'555+55'  : 555+55 ,
-'321-123' : 321-123 ,
-'5*25'    : 5*25 ,
-'99+4'    : 99+4 ,
-'1+9999'  : 1+9999 ,
-'32*4'    : 32*4 ,
-'5*22'    : 5*22 ,
-'1*121'   : 1*121 ,
-'66+0'    : 66+0 ,
-'3*11'    : 3*11 ,
-'99/3'    : 99/3 ,
-'100/20'  : 100/20 ,
-'33/33'   : 33/33 ,
-'1000-2'  : 1000-2 ,
-'31+99'   : 31+99 ,
-'50-42'   : 50-42,
-'1000/5 ' : 1000/5 ,
-'3*21'    : 3*21  ,
-'66/11'   : 66/11 ,
-'115+115' : 115+115 ,
-'31-15'   : 31-15 ,
-'55*3'    : 55*3 ,
-'120/3'   : 120/3 ,
-'1234+766': 1234+766 ,
-'0*400'   : 0*400 ,
-'225/25'  : 225/25,
-'100-31'  : 100-31,
-}
+import time
 
-# RESTOCK y TABLA_OPERACIONES DEBEN MODIFICARSE EN SIMULTANEO
-RESTOCK = {'3+436'   : 3+436,
-'3+1'     : 3+1 ,
-'12*2'    : 12*2 ,
-'436/2'   : 436/2 ,
-'3849+1'  : 3849+1 ,
-'98+888'  : 98+888 ,
-'88+22+1' : 88+22+1 ,
-'13/13'   : 13/13 ,
-'1+1'     : 1+1 ,
-'33+36'   : 33+36 ,
-'100-9'   : 100-9 ,
-'123+66'  : 123+66 ,
-'456+1'   : 456+1 ,
-'555+55'  : 555+55 ,
-'321-123' : 321-123 ,
-'5*25'    : 5*25 ,
-'99+4'    : 99+4 ,
-'1+9999'  : 1+9999 ,
-'32*4'    : 32*4 ,
-'5*22'    : 5*22 ,
-'1*121'   : 1*121 ,
-'66+0'    : 66+0 ,
-'3*11'    : 3*11 ,
-'99/3'    : 99/3 ,
-'100/20'  : 100/20 ,
-'33/33'   : 33/33 ,
-'1000-2'  : 1000-2 ,
-'31+99'   : 31+99 ,
-'50-42'   : 50-42,
-'1000/5 ' : 1000/5 ,
-'3*21'    : 3*21  ,
-'66/11'   : 66/11 ,
-'115+115' : 115+115 ,
-'31-15'   : 31-15 ,
-'55*3'    : 55*3 ,
-'120/3'   : 120/3 ,
-'1234+766': 1234+766 ,
-'0*400'   : 0*400 ,
-'225/25'  : 225/25,
-'100-31'  : 100-31,
-}
+import os
+clear = lambda: os.system('cls') # creacion de methodo cls() para blanqueo de la terminal
 
-
+playerZ, roundZ = 'Not defined' , 'Not defined'
+c = list()
 PLAYER_LIST = []
-CURRENTLY_PLAYING = ''
-ROUND = 1
+This_Game = ''
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+class Conditions():
+    def __init__(self, jugadores, rounds):
+        self.q_players = int(jugadores)
+        self.q_rounds = int(rounds)
+    
+    def __str__(self):
+        return 'Cantidad de jugadores: ' + str(self.q_players) + ', cantidad de rounds: '  + str(self.q_rounds)
 
 class Jugador:
-    def __init__(self, nombre, puntos, aciertos, errores):
+    def __init__(self, nombre, puntos, aciertos, errores, round):
         self.nombre = nombre
         self.puntos = puntos
         self.aciertos = aciertos
         self.errores = errores
+        
+        self.round = round
     
     def __str__(self):
         return f' {self.nombre}, puntos {self.puntos} con {self.aciertos} aciertos'
 
+def q_cond(p):
+    print(f'{bcolors.WARNING}Ingrese valor para ' , {str(p)} , ':',  bcolors.ENDC , sep='')
+    try:
+        q = int(input('--> '))
+        if q <= 0: # en caso SER numerico, verifica qe sea mayor a 0
+            0/0
+    except Exception:
+        time.sleep(0.5)
+        print(f'\n{bcolors.FAIL}Valor ingresado para ' , {str(p)} , f' no valido {bcolors.ENDC}')
+        time.sleep(0.5)
+        q_cond(p)
+    else:
+        q = int(q)
+        c.append(int(q))
 
+def change_conditions(): # Se ejecuta dos veces, la primera para cantidad de jugadores, la segunda para cantidad de rounds
+    time.sleep(0.5)
+    q_cond('JUGADORES')
+    print()
+    
+    time.sleep(0.5)
+    q_cond('ROUNDS')
+    
+    clear()
 
-# TESTEO DE CLASE Jugador
-'''
-j1 = Jugador('mamerto', -10,2, [] )
-j2 = Jugador('lalarto', -100,1,[] )
-j3 = Jugador('soreto', -3,3, [])
-
-l1 = [ j1 , j2 , j3 ]
-
-base = -999
-for i in l1:
-    if i.puntos > base:
-        base = i.puntos
-        WINNER = i.nombre
-
-j3.errores.append('rip')
-j3.errores.append('ah por que veia esto')
-
-for i in l1:
-    print(f'Errores de {i.nombre} {i.errores}')
-
-
-print(WINNER)
-
-#print( l1[2].nombre)  # seleccion de nombre especifico dentro de la lista donde [VALOR] referiria al valor de iteracion
-'''
+def AND_THE_WINNER_IS():
+    clear()
+    def msj(ganador):
+        if WINNER != 'EMPATE!':
+            time.sleep(1)
+            print(f'y el ganador es...')
+            time.sleep(1)
+            print(f'\ncon {ganador.puntos} puntos, producto de {ganador.aciertos} aciertos: \n')
+            time.sleep(2)
+            print(f'\n{bcolors.WARNING}{ganador.nombre}!!!{bcolors.ENDC}\n')
+        else:
+            print('HUBO UN EMPATE! \n\n')
+    base = -999
+    for i in PLAYER_LIST:
+        if i.puntos == base:
+            WINNER = 'EMPATE!'
+        elif i.puntos > base:
+            base = i.puntos
+            WINNER = i
+    msj(WINNER)
+    time.sleep(1.5)
+    for i in PLAYER_LIST:
+        if i.errores == []:
+            print(f'Jugador {i.nombre} no tuvo errores!')
+        else:
+            print(f'Errores de {i.nombre}: {i.errores}')

@@ -2,7 +2,9 @@
 
 Juego donde X cantidad de juegadores en Y rondas (editable por usuario al principio de ejecucion) se ponen a prueba para responder operaciones matematicas simples (sean +, -, / o *) de 2 terminos. 
 
+
 Changelog:
+
 v1.0.0: Creacion del juego 'mathquiz.py'
         Clases para jugadores 'jug.py'
 
@@ -18,8 +20,15 @@ v1.1.2: Aniadido .gitignore
 v1.1.3: Se traslado la clase Jugador al modulo gral.py y se elimino el modulo jug.py
         Se corrigio errores al hacer input de valores invalidos (jugadores, rounds y respuesta a operaciones)
 
-# incoming: 
-#            inicializa y setea una variable con la clase del jugador, se evalua si el valor de jugador de la ronda ACTUAL es el mismo que la ultima vez, 
-#                -en caso negativo: setea una variable de ROUND en 0
-#                -en caso positivo, ROUND +=1
 
+v1.1.4: codigo simplificado
+        aniadido contador de rounds
+        aniadido clear() de terminal para claridad
+        incorporacion y aumento de diferentes timers
+        incorporacion de color de fuente
+        cambios en modulos: tabla.py solo almacenta diccionario de operaciones, gral.py almacena diferentes variables y metodos de flujo
+        minor bugfixes
+
+# incoming: 
+#               falta dialogo de confirmacion de seteo de jugadores/rounds
+#               Version con GUI?

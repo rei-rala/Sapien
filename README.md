@@ -29,6 +29,6 @@ v1.1.4: codigo simplificado,
         cambios en modulos: tabla.py solo almacenta diccionario de operaciones, gral.py almacena diferentes variables y metodos de flujo,
         minor bugfixes
 
-# incoming: 
-#               falta dialogo de confirmacion de seteo de jugadores/rounds
-#               Version con GUI?
+## incoming: 
+###               falta dialogo de confirmacion de seteo de jugadores/rounds
+###               Version con GUI?

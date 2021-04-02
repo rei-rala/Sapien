@@ -3,21 +3,23 @@ import time
 import os
 clear = lambda: os.system('cls') # creacion de methodo cls() para blanqueo de la terminal
 
+class bcolors:
+    HEADER = "\033[95m"
+    OKBLUE = "\033[94m"
+    OKCYAN = "\033[96m"
+    OKGREEN = "\033[92m"
+    WARNING = "\033[93m"
+    FAIL = "\033[91m"
+    ENDC = "\033[0m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
+
 playerZ, roundZ = 'Not defined' , 'Not defined'
 c = list()
 PLAYER_LIST = []
 This_Game = ''
 
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+
 
 class Conditions():
     def __init__(self, jugadores, rounds):
@@ -40,7 +42,7 @@ class Jugador:
         return f' {self.nombre}, puntos {self.puntos} con {self.aciertos} aciertos'
 
 def q_cond(p):
-    print(f'{bcolors.WARNING}Ingrese valor para ' , {str(p)} , ':',  bcolors.ENDC , sep='')
+    print(f'Ingrese valor para ' , {str(p)} , ':' )
     try:
         q = int(input('--> '))
         if q <= 0: # en caso SER numerico, verifica qe sea mayor a 0

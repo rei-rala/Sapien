@@ -4,16 +4,17 @@ import time
 
 from tabla import TABLA_OPERACIONES
 from gral import *
+from gral import bcolors
 
 def Welcome():
-    print(f'\n{bcolors.BOLD}Bienvenido a Sapien, el juego de trivia matematica{bcolors.ENDC}\n')
+    print(f'\nBienvenido a Sapien, el juego de trivia matematica\n')
     time.sleep(2.50)
     if __name__ == '__main__':
         change_conditions()
 Welcome()
 
 This_Game = Conditions( int(c[0]) , int(c[1]) )
-print('\n', This_Game , '\n\n' , sep='')
+print('\n', This_Game , '\n\n')
 
 def Sapien(p):
     clear() # blanqueo de terminal
@@ -30,7 +31,8 @@ def Sapien(p):
     #print( TABLA[select] ) # DEBUG? -> arroja el resultado :D
     
     time.sleep(0.75)
-    respuesta = input('\nIngrese respuesta en numeros enteros: ')   # respuesta del usuario tras seleccion de operacion matematica aleatoria
+    print('\nIngrese respuesta en numeros enteros: ')
+    respuesta = input('--> ')   # respuesta del usuario tras seleccion de operacion matematica aleatoria
     
     time.sleep(1.5)
     
@@ -82,7 +84,7 @@ AND_THE_WINNER_IS()
 
 
 time.sleep(5)
-input(f'\n\n{bcolors.OKGREEN}Juego Finalizado.{bcolors.ENDC}\nIngrese cualquier tecla para finalizar\n')
+input(f'{bcolors.OKGREEN}\n\nJuego Finalizado.{bcolors.ENDC}\nIngrese cualquier tecla para finalizar\n')
 
 '''
 if input('Ingrese "Y" para volver a jugar o cualquier tecla para cerrar: ').upper() == 'Y':

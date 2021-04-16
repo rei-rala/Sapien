@@ -11,11 +11,11 @@ def Welcome():
     time.sleep(2.50)
     change_conditions()
 
-
 if __name__ == '__main__':
     Welcome()
 
 This_Game = Conditions(int(c[0]), int(c[1]))
+
 print('\n', This_Game, '\n\n')
 
 

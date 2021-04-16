@@ -19,8 +19,6 @@ c = list()
 PLAYER_LIST = []
 This_Game = ''
 
-
-
 class Conditions():
     def __init__(self, jugadores, rounds):
         self.q_players = int(jugadores)

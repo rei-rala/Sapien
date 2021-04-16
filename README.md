@@ -27,8 +27,17 @@ v1.1.4: codigo simplificado,
         incorporacion y aumento de diferentes timers,
         incorporacion de color de fuente,
         cambios en modulos: tabla.py solo almacenta diccionario de operaciones, gral.py almacena diferentes variables y metodos de flujo,
-        minor bugfixes
+        Correcion de errores menores
+
+
+16/04/2021
+v1.1.5: Incorporacion de logger (ingresar debug o si al principio de la ejecucion)
+        Mensajes debug/info
+        Codigo simplificado
+        Correcion de errores menores
+        
 
 ## incoming: 
-###               falta dialogo de confirmacion de seteo de jugadores/rounds
+###               Falta dialogo de confirmacion de seteo de jugadores/rounds
 ###               Version con GUI?
+###               Agregar funcionalidad para comenzar un nuevo juego tras finalizar

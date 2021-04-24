@@ -59,8 +59,11 @@ v1.1.5:
 
 24/04/2021  
 v1.2b:  
-###        Incorporado GUI inicial con Pygame  (Homescreen beta)
+        Incorporado GUI inicial con Pygame  (Homescreen beta)  
 
+v1.2.1b:  
+
+        Relocalizacion de variables varias (materials)
 
 # incoming: 
 ##               Falta dialogo de confirmacion de seteo de jugadores/rounds

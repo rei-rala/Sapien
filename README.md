@@ -59,9 +59,9 @@ v1.1.5:
 
 24/04/2021  
 v1.2b:  
-        ###Incorporado GUI inicial con Pygame  (Homescreen beta)
+###        Incorporado GUI inicial con Pygame  (Homescreen beta)
 
 
-## incoming: 
-###               Falta dialogo de confirmacion de seteo de jugadores/rounds
-###               Agregar funcionalidad para comenzar un nuevo juego tras finalizar
+# incoming: 
+##               Falta dialogo de confirmacion de seteo de jugadores/rounds
+##               Agregar funcionalidad para comenzar un nuevo juego tras finalizar

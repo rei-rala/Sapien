@@ -48,17 +48,20 @@ v1.1.4:
 
 
 16/04/2021  
-
 v1.1.5:   
         Incorporacion de logger (ingresar debug o si al principio de la ejecucion),  
         Mensajes debug/info,  
         mathquiz.py reducido,  
         Codigo simplificado,  
         Correcion de errores menores  
+          
+  
 
-        
+24/04/2021  
+v1.2b:  
+        ###Incorporado GUI inicial con Pygame  (Homescreen beta)
+
 
 ## incoming: 
 ###               Falta dialogo de confirmacion de seteo de jugadores/rounds
-###               Version con GUI?
 ###               Agregar funcionalidad para comenzar un nuevo juego tras finalizar

@@ -108,6 +108,7 @@ def AND_THE_WINNER_IS():
     msj(WINNER)
     time.sleep(1.5)
     for i in PLAYER_LIST:
+        print(f'Puntos de {i.nombre}: {i.puntos}')
         if i.errores == []:
             print(f'Jugador {i.nombre} no tuvo errores!')
         else:

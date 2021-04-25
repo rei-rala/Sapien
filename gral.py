@@ -5,8 +5,6 @@ import os
 # creacion de methodo cls() para blanqueo de la terminal
 def clear(): return os.system('cls')
 
-from logger import logger
-
 class bcolors:
     HEADER = "\033[95m"
     OKBLUE = "\033[94m"

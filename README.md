@@ -58,12 +58,24 @@ v1.1.5:
   
 
 24/04/2021  
-v1.2b:  
+v1.2a:  
         Incorporado GUI inicial con Pygame  (Homescreen beta)  
 
-v1.2.1b:  
+v1.2.1a:  
 
         Relocalizacion de variables varias (materials)
+
+
+v1.2.1a:  
+
+        Renombrada versiones a alpha.
+        Homescreen incluye sonidos, comportamiento de botones  
+          
+            
+25/04/2021  
+v1.2.2a:  
+
+        Aniadido Sapien GUI hasta segmento de seleccion de cantidad de jugadores y rounds (inestable)
 
 # incoming: 
 ##               Falta dialogo de confirmacion de seteo de jugadores/rounds

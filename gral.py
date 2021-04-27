@@ -16,8 +16,6 @@ class bcolors:
     BOLD = "\033[1m"
     UNDERLINE = "\033[4m"
 
-
-playerZ, roundZ = 'Not defined', 'Not defined'
 cant_jugadores, cant_rounds = list(), list()
 PLAYER_LIST = []
 This_Game = ''

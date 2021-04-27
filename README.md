@@ -75,8 +75,18 @@ v1.2.1a:
 25/04/2021  
 v1.2.2a:  
 
-        Aniadido Sapien GUI hasta segmento de seleccion de cantidad de jugadores y rounds (inestable)
+        Aniadido Sapien GUI hasta segmento de seleccion de cantidad de jugadores y rounds (inestable)  
+          
+            
+25/04/2021  
+v1.2.35a:  
+        Mejorada estabilidad en seteo de cantidad de jugadores y cantidad de rounds  
+        Sonidos aniadidos  
+        Creadas funciones para animaciones in/out  
+        Aniadido juego hasta creacion de nombres de jugadores (falta GUI)  
+        
 
-# incoming: 
+# incoming:               
+##               Cada jugador debe escojer un boton para su fondo mientras le toca turno
 ##               Falta dialogo de confirmacion de seteo de jugadores/rounds
 ##               Agregar funcionalidad para comenzar un nuevo juego tras finalizar

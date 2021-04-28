@@ -86,9 +86,20 @@ v1.2.35a:
         Aniadido juego hasta creacion de nombres de jugadores (falta GUI)  
 
 v1.2.5a:  
-        Aniadido juego hasta segmento de pregunta-respuesta
+        Aniadido juego hasta segmento de pregunta-respuesta  
+
+v1.5:  
+        Juego completado!
+        Esferas de respuesta randomizadas
+        Factor aleatorio ajustado
+
 
 # incoming:               
 ##               Cada jugador debe escojer un boton para su fondo mientras le toca turno
 ##               Agregar funcionalidad para comenzar un nuevo juego tras finalizar
-##               randomizar orden de esferas de respuesta
+##               Mucho lugar a mejora respecto a lo visual
+##               
+##               La aplicacion es inestable
+##               Error conocido: puede haber dos jugadores con mismo nombre
+##               Error conocido: ejecucion desordenada de sonidos
+##               Error conocido: interrumpir animaciones hace la aplicacion inestable

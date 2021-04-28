@@ -1,10 +1,5 @@
 import time
 
-def countdown(seconds=3):
-    for i in range(seconds):
-        print(seconds - i)
-        time.sleep(1)
-
 # FRAMES PER SECOND
 #FPS = 45
 
@@ -40,6 +35,8 @@ permanentmarker = './materiales/fonts/PermanentMarker-Regular.ttf'
 s_click = './materiales/sounds/Mouse_Click_4-fesliyanstudios.com.mp3'
 hover_option = './materiales/sounds/generic-rollover-or-navigational-tone-4-sound-effect-85983277.mp3'
 checkmark = './materiales/sounds/Check mark sound effect.mp3'
+wrong_answer = './materiales/sounds/Wrong-answer-sound-effect.mp3'
+clock_tick = './materiales/sounds/clock_tick.mp3'
 
 # ITEM POSITIONING
 position_x_center = WIDTH//2

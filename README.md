@@ -85,7 +85,10 @@ v1.2.35a:
         Creadas funciones para animaciones in/out  
         Aniadido juego hasta creacion de nombres de jugadores (falta GUI)  
 
+v1.2.5a:  
+        Aniadido juego hasta segmento de pregunta-respuesta
 
 # incoming:               
 ##               Cada jugador debe escojer un boton para su fondo mientras le toca turno
 ##               Agregar funcionalidad para comenzar un nuevo juego tras finalizar
+##               randomizar orden de esferas de respuesta

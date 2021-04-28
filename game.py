@@ -1,10 +1,11 @@
-# Import and initialize the pg library
-
 import sys
+import random
 import pygame as pg
 from materiales.materials import *
+from tabla import TABLA_OPERACIONES
 from gral import *
 from string import ascii_letters
+
 
 ord_ascii_letters = list()
 for l in ascii_letters:
@@ -55,7 +56,7 @@ class Button(Text):
         self.btn_size = btn_size
         self.area = area
         self.value = value
-
+    
     def __str__(self):
         return f'''
 {__class__.__name__} '{self.text}':
@@ -102,8 +103,8 @@ def pg_blit(to_blit):
             SCREEN.blit(text, text_rect)
         return draw()
 
-# Screen animation between opctions
-def screen_animation(type='OUT', color_from=BACKGROUND, color_target=BLACK, speed=0.015):
+# Screen animation between options
+def screen_animation(type='OUT', color_from=BACKGROUND, color_target=BLACK):
     animation_in = [
         Button_round(text='', btn_color=(color_target[0]*0.10, color_target[1]*0.10, color_target[2]*0.10), btn_size=(WIDTH*0.05, HEIGHT*0.05)),
         Button_round(text='', btn_color=(color_target[0]*0.15, color_target[1]*0.15, color_target[2]*0.15), btn_size=(WIDTH*0.15, HEIGHT*0.15)),
@@ -152,16 +153,66 @@ def screen_animation(type='OUT', color_from=BACKGROUND, color_target=BLACK, spee
     if type == 'IN':
         for i in animation_in:
             pg_blit(i)
-            time.sleep(speed)
             pg.display.update()
+            pg.time.wait(25)
     elif type == 'OUT':
         for i in animation_out:
             SCREEN.fill(color_target)
             pg_blit(i)
-            time.sleep(speed)
             pg.display.update()
+            pg.time.wait(25)
     return pg.display.update()
 
+# Smaller animation after chosing
+def choose_animation(type=None):
+    
+    def set(color, text):
+        animation_1 = [
+            Button_round(text='', btn_color=(color[0]*0.30, color[1]*0.30, color[2]*0.30), btn_size=(WIDTH*0.05, HEIGHT*0.05)),
+            Button_round(text='', btn_color=(color[0]*0.50, color[1]*0.50, color[2]*0.50), btn_size=(WIDTH*0.10, HEIGHT*0.20)),
+            Button_round(text='', btn_color=(color[0]*0.60, color[1]*0.60, color[2]*0.60), btn_size=(WIDTH*0.20, HEIGHT*0.30)),
+            Button_round(text='', btn_color=(color[0]*0.70, color[1]*0.70, color[2]*0.70), btn_size=(WIDTH*0.30, HEIGHT*0.30)),
+            Button_round(text='', btn_color=(color[0]*0.80, color[1]*0.80, color[2]*0.80), btn_size=(WIDTH*0.40, HEIGHT*0.40)),
+            Button_round(text='', btn_color=(color[0]*0.90, color[1]*0.90, color[2]*0.90), btn_size=(WIDTH*0.50, HEIGHT*0.50)),
+            Button_round(text=text, btn_color=(color[0]*1.00, color[1]*1.00, color[2]*1.00), btn_size=(WIDTH*0.60, HEIGHT*0.60))
+        ]
+        animation_2 = [
+            Button_round(text='', btn_color=BLACK, btn_size=(WIDTH*1.15, HEIGHT*1.15)),
+            Button_round(text='', btn_color=BLACK, btn_size=(WIDTH*0.95, HEIGHT*0.95)),
+            Button_round(text='', btn_color=BLACK, btn_size=(WIDTH*0.90, HEIGHT*0.90)),
+            Button_round(text='', btn_color=BLACK, btn_size=(WIDTH*0.85, HEIGHT*0.85)),
+            Button_round(text='', btn_color=BLACK, btn_size=(WIDTH*0.80, HEIGHT*0.80)),
+            Button_round(text='', btn_color=BLACK, btn_size=(WIDTH*0.75, HEIGHT*0.75)),
+            Button_round(text='', btn_color=BLACK, btn_size=(WIDTH*0.70, HEIGHT*0.70)),
+            Button_round(text='', btn_color=BLACK, btn_size=(WIDTH*0.62, HEIGHT*0.62)),
+            Button_round(text='', btn_color=(color[0]*1.00, color[1]*1.00, color[2]*1.00), btn_size=(WIDTH*0.55, HEIGHT*0.55)),
+            Button_round(text='', btn_color=(color[0]*1.00, color[1]*1.00, color[2]*1.00), btn_size=(WIDTH*0.40, HEIGHT*0.40)),
+            Button_round(text='', btn_color=(color[0]*1.00, color[1]*1.00, color[2]*1.00), btn_size=(WIDTH*0.30, HEIGHT*0.30)),
+            Button_round(text='', btn_color=(color[0]*1.00, color[1]*1.00, color[2]*1.00), btn_size=(WIDTH*0.20, HEIGHT*0.20)),
+            Button_round(text='', btn_color=(color[0]*1.00, color[1]*1.00, color[2]*1.00), btn_size=(WIDTH*0.10, HEIGHT*0.10)),
+            Button_round(text='', btn_color=(color[0]*1.00, color[1]*1.00, color[2]*1.00), btn_size=(WIDTH*0.05, HEIGHT*0.05))
+        ]
+        for i in animation_1:
+            pg_blit(i)
+            pg.display.update()
+            pg.time.wait(25)
+        pg.time.wait(700)
+        #for i in animation_2:
+        #    pg_blit(i)
+        #    pg.display.update()
+        #    pg.time.wait(35)
+        #pg.time.wait(1000)
+        screen_animation(color_from=BLACK, color_target=BACKGROUND)
+
+    if type == 'OK':
+        set(GREEN, 'Respuesta correcta!')
+    elif type == 'BAD':
+        set(RED, 'Respuesta incorrecta :(')
+    elif type == 'TIMESUP':
+        set( (255, 233, 0) , 'Se acabo el tiempo :/' )
+    
+    return pg.display.update(), pg.time.wait(100)
+    
 # THIS FUNCTION CHECKS IF THE MOUSE IS IN THE AREA OF OBJECT, QUANTITY ARGUMENT IS FOR THE COUNT, OBJECTS ARGUMENT MUST BE A LIST OF OBJECTS
 def in_area(quantity, objects, x, y):
     if quantity == 1:
@@ -176,24 +227,190 @@ def in_area(quantity, objects, x, y):
 
 # -------------------- Game instructions -----------------------------
 
+def question(p, selection):
+    screen_animation(type='IN', color_from=BLACK, color_target=BACKGROUND)
+    SCREEN.fill(BACKGROUND)
+    
+    currently_playing = Button(text=f'       {p.nombre} - R{p.round}', size=15, btn_size=[200,25] ,color=BACKGROUND, btn_color=BLACK, x_ax=position_x_dot10*0.65, y_ax=position_y_dot10*0.65)
+    text1 = Text(text=f'DADA LA SIGUIENTE OPERACION', font_family=roboto_thin ,size=30, color=LETTERS, y_ax=position_y_quarter1)
+   
+    pg_blit(currently_playing)
+    pg.display.update()
+    pg.time.wait(1000)
+    pg_blit(text1)
+    pg.display.update()
+    pg.time.wait(1000)
+
+    text_OP = Text(text=f' {selection} ', font_family=roboto_thin ,size=45, color=BLUE, y_ax=position_y_center*0.75)
+    text2 = Text(text=f'¿Cual es el resultado?', font_family=roboto_thin ,size=30, color=LETTERS, y_ax=position_y_center*1.1)
+
+    
+    pg_blit(text_OP)
+    pg.display.update()
+    pg.time.wait(1000)
+    pg_blit(text2)
+    pg.display.update()
+
+    n, m = random.randint(-50,100), random.uniform(0.85, 1.15)
+    while n==0 or m==1:
+        n, m = random.randint(-50,100), random.uniform(0.85, 1.15)
+        print(n, m)
+
+    btn1 = Button_round(text=f'{int(round(TABLA_OPERACIONES[selection]+n))}', color=BACKGROUND, btn_color=BLUE, x_ax=position_x_dot30, y_ax=position_y_dot80)
+    btn2 = Button_round(text=f'{int(TABLA_OPERACIONES[selection])}', color=BACKGROUND, btn_color=BLUE, x_ax=position_x_dot50, y_ax=position_y_dot80)
+    btn3 = Button_round(text=f'{int(TABLA_OPERACIONES[selection]*m)}', color=BACKGROUND, btn_color=BLUE, x_ax=position_x_dot70, y_ax=position_y_dot80)
+
+    def blit_options(index):
+        if index == 0:
+            return btn1
+        elif index == 1:
+            return btn2
+        elif index == 2:
+            return btn3
+
+    index_shuffle = [0,1,2]
+    random.shuffle(index_shuffle)
+
+    i = 0
+    for index in index_shuffle:
+
+        print(index)
+        
+        if i == 0:
+            #print( blit_options(index))#.x_ax, blit_options(index).index.y_ax )
+            blit_options(index).x_ax=int(round(position_x_dot30)//1)
+            blit_options(index).y_ax=int(round(position_y_dot80)//1)
+        elif i == 1:
+            #print( blit_options(index))#.x_ax, blit_options(index).index.y_ax )
+            blit_options(index).x_ax=int(round(position_x_dot50)//1)
+            blit_options(index).y_ax=int(round(position_y_dot80)//1)
+        elif i == 2:
+            print( blit_options(index))#.x_ax, blit_options(index).index.y_ax )
+            blit_options(index).x_ax=int(round(position_x_dot70)//1)
+            blit_options(index).y_ax=int(round(position_y_dot80)//1)
+        pg_blit(blit_options(index))
+    pg.display.update()
+    
+
+    question_running = True
+    second = 0
+    while question_running:
+        for event in pg.event.get():
+            rel_x, rel_y = pg.mouse.get_pos()
+            if event.type == pg.QUIT:
+                question_running = False
+                sys.exit()
+            elif event.type == pg.MOUSEMOTION and in_area(3, (btn1, btn2, btn3), rel_x, rel_y):
+                if second % 2 == 0:
+                    print(f'Mouse moved X={rel_x}  Y={rel_y}')
+            elif event.type == pg.MOUSEBUTTONDOWN and second % 0.5 == 0 and in_area(3, (btn1, btn2, btn3), rel_x, rel_y):
+                if in_area(1, (btn2), rel_x, rel_y):
+                    p.aciertos += 1
+                    p.puntos += 2
+                    #logger.info(f'Jugador {p.nombre} +1 acierto ({p.aciertos}), +2 puntos ({p.puntos})')
+                    choose_animation(type='OK')
+                    question_running = False
+                    print('Respuesta Correcta')
+                elif in_area(2, (btn1, btn3), rel_x, rel_y): 
+                    p.puntos -= 1
+                    p.errores.append(f'En round {p.round} -> {selection}')
+                    choose_animation(type='BAD')
+                    question_running = False
+                    print('Respuesta incorrecta')
+                    #logger.info(f'Anadido error Nro {len(p.errores)} en round {p.round} para jugador {p.nombre}: {select} = {str(respuesta)}')
+                    #logger.info(f'Jugador {p.nombre} -1 puntos ({p.puntos}), total errores: {len(p.errores)}')
+            elif event.type == pg.USEREVENT:
+                second += 1
+                if second == 15:
+                    p.puntos -= 1
+                    p.errores.append(f'En round {p.round} -> {selection}')
+                    choose_animation(type='TIMESUP')
+                    question_running = False
+                    print(f'Se acabo el tiempo.')
+
+
+def Sapien(p):
+    p.round += 1
+    SCREEN.fill(BLACK)
+    welcome = Text(text='Sapien', font_family=permanentmarker, size=25, color=BLUE, x_ax=position_x_dot10, y_ax=position_y_dot10)
+    select = random.choice(list(TABLA_OPERACIONES.keys()))
+    key_operation = str(select)
+
+    print(select)
+    
+    #logger.debug(f'Jugador {p.nombre}, round {p.round} => Operacion aleatoria seleccionada \'{select}\' respuesta: {int(TABLA_OPERACIONES[select])}')
+
+
+    jugadorX = Button(text=f'Jugador {p.nombre}', size=60, color=BACKGROUND, btn_color=BLACK, y_ax=position_y_quarter3-50)
+    roundX = Button(text=f'Round Nro {p.round}', size=60, color=BACKGROUND, btn_color=BLACK, y_ax=position_y_quarter1)
+    
+    #print(f'RONDA {p.round} \n\nJUGADOR {bcolors.WARNING} {p.nombre}{bcolors.ENDC},')
+    for i in (welcome, jugadorX, roundX):
+        pg_blit(i)
+    pg.display.update()
+
+    pg.time.wait(1500)
+    question(p, select)
+
+    # Elimina la opcion elegida por el sistema para evitar que haya dos juegos iguales
+    TABLA_OPERACIONES.pop(key_operation)
+
+
+
+def pre_game(seconds_animation=3):
+    target_screen = (BLUE, BLACK, (119,136,153), WHITE)
+    letters = (WHITE, BLACK, BLACK)
+    
+    for i in range(seconds_animation):
+        screen_animation(color_from=target_screen[i], color_target=target_screen[i+1])
+        
+        pg_blit( Text(text=str(-i+3), font_family=permanentmarker, size=180+i*150, color=letters[i] ))
+        pg.display.update()
+        pg.time.wait(500)
+    screen_animation(color_from=WHITE, color_target=BLACK)
+    for p in PLAYER_LIST:
+        for g in range(cant_rounds[0]):
+            pg.time.wait(100)
+            Sapien(p)
+     
+
 def player_names():
     pg.display.flip()
     player_name = list()
     player_name.append('')
     print(player_name)
     
+    sapien_title = Text(text='Sapien', font_family=permanentmarker, size=25, color=BLACK, x_ax=position_x_dot10, y_ax=position_y_dot10)
+    pg_blit(sapien_title)
+
     def name_refresh(index, key, action):
         if action == 'add':
             player_name[index] += key
             print(player_name[index])
+            pg_blit(Button(text=player_name[index], size=35, btn_size=[300,55], btn_color=(255, 233, 0)))
+            pg.display.update()
+            pg.time.wait(50)
+            pg_blit(Button(text=player_name[index], size=35, btn_size=[300,55], btn_color=GREEN))
+            pg.display.update()
         elif action == 'backspace':
             player_name[index] = player_name[index][0:len(player_name[index])-1]
             print(player_name[index])
+            # aniadir borde que cambia de color al escrobir o borrar
+            pg_blit(Button(text=player_name[index], size=35, btn_size=[300,55], btn_color=RED))
+            pg.display.update()
+            pg.time.wait(50)
+            pg_blit(Button(text=player_name[index], size=35, btn_size=[300,55], btn_color=GREEN))
+            pg.display.update()
     
-    for i in range(0,2):
+    for i in range(0,cant_jugadores[0]):
         player_names_running = True
         player_name.append('')
-    #    pg.SCREEN(BACKGROUND)
+    # aqui probablemente se escojera la lista de colores para el fondo de pantalla de cada jugador 
+        screen_animation(type='IN', color_from=BLACK, color_target=BACKGROUND)
+        SCREEN.fill(BACKGROUND)
+        pg_blit(Button(text=f'Ingrese nombre para jugador {i+1}', size=35, btn_size=[300,55], btn_color=BACKGROUND, y_ax=position_y_quarter1))
+        pg_blit(Button(text='', size=35, btn_size=[300,55], btn_color=GREEN))
+        pg.display.update()
         while player_names_running:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
@@ -201,32 +418,29 @@ def player_names():
                 elif event.type == pg.KEYDOWN and event.key== 8 and len(player_name[i]) != 0:
                     key = chr(event.key)
                     name_refresh(i, key, 'backspace')
-                elif event.type == pg.KEYDOWN and event.key in ord_ascii_letters:
+                elif event.type == pg.KEYDOWN and event.key in ord_ascii_letters and len(player_name[i]) != 11:
                     key = chr(event.key)
                     name_refresh(i, key, 'add')
-                elif event.type == pg.KEYDOWN and event.key == pg.K_RETURN and len(player_name) != 0:
+                elif event.type == pg.KEYDOWN and event.key in ord_ascii_letters and len(player_name[i]) == 10:
+                    pg_blit(Button(text='10 caracteres maximo por favor', btn_color=BACKGROUND, btn_size=[500,45], y_ax=position_y_dot80)) 
+                    pg.display.update()
+                    pg.time.wait(100)
+                    pg_blit(Button(text='', color=RED, btn_color=BACKGROUND, btn_size=[500,45], y_ax=position_y_dot80))
+                    pg.display.update()
+                elif event.type == pg.KEYDOWN and event.key == pg.K_RETURN and len(player_name[i]) != 0:
+                    pg_blit(Button(text='', size=35, btn_size=[300,55], btn_color=GREEN))
+                    pg.display.update()
                     player_created = Jugador(player_name[i])
                     PLAYER_LIST.append(player_created)
                     print(PLAYER_LIST)
                     player_names_running = False
             continue
-
-def countdown_animation(seconds_animation=3):
-    target_screen = (BLUE, BLACK, (119,136,153), WHITE)
-    letters = (WHITE, BLACK, BLACK)
-    
-    for i in range(seconds_animation):
-        screen_animation(color_from=target_screen[i], color_target=target_screen[i+1], speed=0.01)
-        
-        pg_blit( Text(text=str(-i+3), font_family=permanentmarker, size=180+i*100, color=letters[i] ))
-        pg.display.update()
-        time.sleep(1)
-    player_names()  
+    pre_game()
 
 def set_rounds():
     pg.display.flip()
     # NICE TRANSITION, BRO
-    screen_animation(type='OUT', color_from=RED, color_target=BLUE, speed=0.015)
+    screen_animation(type='OUT', color_from=RED, color_target=BLUE)
     
     sapien_title = Text(text='Sapien', font_family=permanentmarker, size=25, color=BLACK, x_ax=position_x_dot10, y_ax=position_y_dot10)
     choose_playerst1 = Text(text='Selecciona la cantidad de rounds', font_family=roboto_regular, size=35, color=BACKGROUND, y_ax=position_y_quarter1)
@@ -256,11 +470,12 @@ def set_rounds():
             elif event.type == pg.MOUSEBUTTONDOWN and in_area(8, (choose_1, choose_2, choose_3, choose_4, choose_5, choose_6, choose_7, choose_8), rel_x, rel_y):
                     print(f'Clicked! X={rel_x}, Y={rel_y}')
                     checkmark.play()
-                    time.sleep(0.1)
+                    pg.time.wait(10)
 
                     def choose_rounds(button_class):
                         cant_rounds.append(button_class.value)
-                        print(f'Cantidad de rounds: {cant_rounds}')
+                        #print(f'Cantidad de rounds: {cant_rounds}')
+                        player_names()
 
                     if in_area(1, (choose_1), rel_x, rel_y): print('JUGADORES 1'), choose_rounds(choose_1)
                     elif in_area(1, (choose_2), rel_x, rel_y): print('JUGADORES 2'), choose_rounds(choose_2)
@@ -270,10 +485,8 @@ def set_rounds():
                     elif in_area(1, (choose_6), rel_x, rel_y): print('JUGADORES 6'), choose_rounds(choose_6)
                     elif in_area(1, (choose_7), rel_x, rel_y): print('JUGADORES 7'), choose_rounds(choose_7)
                     elif in_area(1, (choose_8), rel_x, rel_y): print('JUGADORES 8'), choose_rounds(choose_8)
-
-
                     set_rounds_running = False
-                    countdown_animation()
+                    
                     
             elif event.type == pg.USEREVENT:
                 second += 1
@@ -287,7 +500,7 @@ def set_rounds():
 def set_players():
     pg.display.flip()
     # NICE TRANSITION, BRO
-    screen_animation(type='IN', color_from=WHITE, color_target=RED, speed=0.015)
+    screen_animation(type='IN', color_from=WHITE, color_target=RED)
 
     sapien_title = Text(text='Sapien', font_family=permanentmarker, size=25, color=BLACK, x_ax=position_x_dot10, y_ax=position_y_dot10)
     choose_playerst1 = Text(text='Selecciona la cantidad de jugadores', font_family=roboto_regular, size=35, color=BLACK, y_ax=position_y_quarter1)
@@ -314,7 +527,7 @@ def set_players():
             elif event.type == pg.MOUSEBUTTONDOWN and in_area(4, (choose_1, choose_2, choose_3, choose_4), rel_x, rel_y):
                     print(f'Clicked! X={rel_x}, Y={rel_y}')
                     checkmark.play()
-                    time.sleep(0.1)
+                    pg.time.wait(10)
 
                     def choose_players(button_class):
                         cant_jugadores.append(button_class.value)
@@ -343,17 +556,18 @@ def info():
     SCREEN.fill(BACKGROUND)
 
     second = 0
-    game_info = Button(font_family=roboto_regular, btn_color=BLUE, btn_size=[WIDTH*0.95, HEIGHT*0.95], text='')
+    game_info = Button(font_family=roboto_regular, btn_color=BLUE, btn_size=[WIDTH*0.90, HEIGHT*0.90], text='')
     title = Text(font_family=roboto_light_italic, size=50,color=WHITE, text='Sapien,', y_ax=position_y_quarter1-50)
     lines = [
         'Sapien es un juego matematico multijugador en el cual se les',
-        'presentaran diferentes operaciones matematicas para las cuales',
-        'tendras opciones para responder, ganara el jugador que mayor',
-        'numero de puntos posea.',
+        'presentaran diferentes operaciones matematicas, para las',
+        'cuales tendras opciones para responder.',
+        'El jugador mas puntos tenga, ganara',
+        '',
         'Nota: Los errores quitan puntos'
     ]
 
-    _continue = Button(text='Okay', color=BLACK, btn_color=GREEN, y_ax=position_y_quarter3+50)
+    _continue = Button(text='Okay', color=BLACK, btn_color=GREEN, y_ax=position_y_quarter3+60)
 
     for i in (game_info, title, _continue):
         pg_blit(i)
@@ -416,7 +630,7 @@ def main_screen():
                     print(f'Clicked X={rel_x}  Y={rel_y}')
                     hover.play()
                     main_running = False
-                    time.sleep(0.1)
+                    pg.time.wait(10)
                     sys.exit()
             elif event.type == pg.USEREVENT:
                 second += 1

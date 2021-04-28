@@ -2,6 +2,7 @@
 
 Juego donde X cantidad de juegadores en Y rondas (editable por usuario al principio de ejecucion) se ponen a prueba para responder operaciones matematicas simples (sean +, -, / o *) de 2 terminos. 
 
+# Ejecutar desde game.py :)
 
 Changelog:
 

@@ -87,8 +87,10 @@ v1.2.35a:
         Aniadido juego hasta creacion de nombres de jugadores (falta GUI)  
 
 v1.2.5a:  
-        Aniadido juego hasta segmento de pregunta-respuesta  
-
+        Aniadido juego hasta segmento de pregunta-respuesta    
+          
+            
+28/04/2021  
 v1.5:  
         Juego completado!
         Esferas de respuesta randomizadas

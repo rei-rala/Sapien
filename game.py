@@ -590,7 +590,7 @@ def player_names():
         player_name.append('')
 
 
-    # aqui probablemente se escojera la lista de colores para el fondo de pantalla de cada jugador 
+    # I could make some button/s for choosing background color
         screen_animation(type='IN', color_from=BLACK, color_target=BACKGROUND)
         SCREEN.fill(BACKGROUND)
         pg_blit(Text(font_family=roboto_thin, text=f'Ingrese nombre para J{i+1} (de {cant_jugadores[0]})', y_ax=position_y_dot40))

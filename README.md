@@ -1,5 +1,9 @@
 "# Sapien" 
 
+Si alguien esta leyendo esto, que sepa que no tengo idea de como hice algunas cosas en su momento (no imité ningun proyecto!!!), pero me agrada volver a ver lo que codeé tras conocer solo fundamentos de python. Claramente no voy a actualizar este jueguito para seguir analizando mi cabeza y como soy al encarar los problemas e implementar ideas que me fueron surgiendo (al menos 3 meses despues, todavía tengo los recuerdos frescos, mas aún de todo eso que no sé como hice funcionar y aquello que me rompió la cabeza al intentar realizar) . 
+Puede que no sea la gran cosa, pero si lo fue para mi :)
+-tener en cuenta que pygame solo aporta facilidades para crear la ventana, administrar eventos y realizar el render de 'cosas' en la misma.
+
 Juego donde X cantidad de juegadores en Y rondas (editable por usuario al principio de ejecucion) se ponen a prueba para responder operaciones matematicas simples (sean +, -, / o *) de 2 terminos. 
 
 # Ejecutar desde game.py :)
